@@ -2,23 +2,46 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace RusDB.Controllers
 {
     public class HelloWorldController : Controller
     {
-        public string Index()
+        public IActionResult Index()
         {
-            return "This is my default action...";
+            return View();
+        }
+
+        public string Index1()
+        {
+            return "This is my default action... Index1";
         }
 
         // 
         // GET: /HelloWorld/Welcome/ 
 
-        public string Welcome()
+
+
+        public IActionResult Welcome(string name, int numTimes = 1)
         {
-            return "This is the Welcome action method...";
+            ViewData["Message"] = "Hello " + name;
+            ViewData["NumTimes"] = numTimes;
+
+
+
+            return View();
+        }
+
+        public string Welcome2()
+        {
+            return "This is the Welcome action method... Welcome";
+        }
+
+        public string Welcome3(string name, int numTimes = 1)
+        {
+            return HtmlEncoder.Default.Encode($"Hello {name}, NumTimes is: {numTimes}");
         }
     }
 }
